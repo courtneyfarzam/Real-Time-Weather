@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/0aa93583c3.js" crossorigin="anonymous"></script>
+    <title>The Weather</title>
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+
+<body>
+
+    <div class="weather-app">
+    <div class="container">
+
+        <h3 class="title">today's weather</h3>
+
+        <div class="main-container">
+
+            <div class="big-details">
+
+                <h1 class="temperature">98&#176;</h1>
+
+                <div class="city-date">
+
+                    <h2 class="city-name">London</h2>
+                    <span class="date">Monday Sept 5</span>
+
+                </div>
+
+                <div class="weather">
+
+                    <img src="#" class="icon" alt="icon">
+                    <span class="condition">Cloudy</span>
+
+                </div>
+
+            </div>
+
+            <div class="forecast">
+
+                <h2 class="forecast-header">5 Day Forecast:</h2>
+
+                <div id="weather-forecast"></div>
+
+            </div>
+        
+        </div>
+
+        <div class="search-container">
+
+            <form id="locationInput">
+
+                <input type="text" placeholder="Search City" autofocus="true" id="cityName" class="search-city">
+
+                <button class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </form>
+
+            <ul class="cities">
+
+                <li class="city">New York</li>
+                <li class="city">California</li>
+                <li class="city">Paris</li>
+                <li class="city">Tokyo</li>
+
+            </ul>
+
+            <ul class="daily-details">
+
+                <h4>Weather Details</h4>
+
+                <li>
+                    <p>Wind</p>
+                    <span class="wind">20mph</span>
+                </li>
+                <li>
+                    <p>Humidity</p>
+                    <span class="humidity">20%</span>
+                </li>
+                <li>
+                    <p>UV Index</p>
+                    <span class="uv-index">0.47</span>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+    </div>
+    
+</body>
+
+<script src="./assets/script.js"></script>
+</html>
