@@ -18,10 +18,23 @@ var kToF = function(k){
 
 function cityClick(e) {
     cityInput = e.target.innerHTML;
+    cities.forEach((city) => {
+        city.addEventListener('click', (e) => {
+            cityInput = e.target.innerHTML;
+        })
+    })
 
     fetchDailyWeather(cityInput);
     fetchWeeklyWeather(cityInput);
 }
+
+cities.forEach((city) => {
+    city.addEventListener('click', (e) => {
+        cityInput = e.target.innerHTML;
+        fetchDailyWeather();
+        fetchWeeklyWeather();
+    })
+})
 
 form.addEventListener('submit', (e) => {
     if (search.value.length == 0) {
@@ -88,6 +101,7 @@ function fetchDailyWeather() {
         var nd = new Date(currentCity)
         const currentTime = new Date(nd).getHours();
         console.log(currentTime)
+        console.log(localTime)
 
 
         if (code == 800) {
