@@ -1,12 +1,10 @@
 var app = document.querySelector('.weather-app');
 var forecast = document.querySelector('#weather-forecast');
 
-var weeklyTemp = document.querySelector('.weekly-temp');
-var weeklyWind = document.querySelector('.weekly-wind');
-var weeklyHumidity = document.querySelector('.weekly-humidity');
 var form = document.getElementById('locationInput');
 var search = document.querySelector('.search-city');
 var btn = document.querySelector('.submit');
+var cityList = document.querySelector('.cities')
 var cities = document.querySelectorAll('.city');
 
 
@@ -18,14 +16,12 @@ var kToF = function(k){
     return Math.floor((k - 273.15) * 1.8 + 32)
 };
 
-cities.forEach((city) => {
-    city.addEventListener('click', (e) => {
-        cityInput = e.target.innerHTML;
+function cityClick(e) {
+    cityInput = e.target.innerHTML;
 
-        fetchDailyWeather();
-        fetchWeeklyWeather();
-    })
-})
+    fetchDailyWeather(cityInput);
+    fetchWeeklyWeather(cityInput);
+}
 
 form.addEventListener('submit', (e) => {
     if (search.value.length == 0) {
@@ -35,8 +31,9 @@ form.addEventListener('submit', (e) => {
         cityInput = search.value;
     }
 
-    fetchDailyWeather();
-    fetchWeeklyWeather();
+    fetchDailyWeather(cityInput);
+    fetchWeeklyWeather(cityInput);
+    saveCity();
 
     search.value = '';
 
@@ -116,16 +113,75 @@ function fetchDailyWeather() {
 }
 
 function fetchWeeklyWeather() {
-    fetch(`api.openweathermap.org/data/2.5/forecast/daily?q=${cityInput}&appid=92f58b8d29e5240f313467eab70b0b56`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=92f58b8d29e5240f313467eab70b0b56`)
+
     .then(response => response.json())
     .then(data => {
-        console.log(data)
+        console.log(data);
 
+        forecast.innerHTML = '';
+
+        for (var i = 0; i < data.list.length; i += 8){
+            
+            var forecastEl = document.createElement('div');
+            forecastEl.setAttribute('class', 'forecast-card');
+
+            var forecastDate = document.createElement('h3');
+            forecastDate.textContent = new Date(data.list[i].dt*1000).toLocaleDateString();
+
+            var forecastIcon = document.createElement('img');
+            forecastIcon.src = `http://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`;
+            forecastIcon.style.height = '54px';
+            forecastIcon.style.width = '54ox';
+
+            var forecastTemp = document.createElement('p');
+            forecastTemp.setAttribute('class', 'forecast-temp');
+            forecastTemp.innerHTML = `${kToF(data.list[i].main.temp)}&#176;F`;
+
+            var forecastHumidity = document.createElement('p');
+            forecastHumidity.innerHTML = `Humidity: ${data.list[i].main.humidity}%`;
+
+            var forecastWind = document.createElement('p');
+            forecastWind.innerHTML = `Wind: ${data.list[i].wind.speed} mph`;
+
+            forecastEl.append(forecastDate, forecastIcon, forecastTemp, forecastHumidity, forecastWind);
+            forecast.append(forecastEl)
+
+
+        }
 
     })
 
 }
 
+
+
+let savedCities = JSON.parse(localStorage.getItem('cities')) || [];
+console.log(savedCities)
+
+function saveCity() {
+
+    var cityInput = search.value.trim();
+
+    if (savedCities.indexOf(cityInput) == -1) {
+        savedCities.push(cityInput);
+        localStorage.setItem('savedCities', JSON.stringify(savedCities));
+    }
+
+
+    // for (var i = 0; i < savedCities.length; i++) {
+    //     var city = savedCities[i];
+        var listItem = document.createElement('li')
+        listItem.textContent = cityInput;
+        listItem.setAttribute('class', 'city');
+        cityList.appendChild(listItem);
+        console.log(savedCities)
+
+        listItem.addEventListener('click', cityClick)
+    }
+// }
+
 fetchDailyWeather();
+fetchWeeklyWeather();
 
 
