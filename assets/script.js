@@ -1,12 +1,6 @@
 var app = document.querySelector('.weather-app');
-var dailyTemp = document.querySelector('.temperature');
-var dateOutput = document.querySelector('.date');
-var conditionOutput = document.querySelector('.condition');
-var nameOutput = document.querySelector('.city-name');
-var icon = document.querySelector('.icon');
-var humidityOutput = document.querySelector('.humidity');
-var windOutput = document.querySelector('.wind');
-var uvIndex = document.querySelector('uv-index');
+var forecast = document.querySelector('#weather-forecast');
+
 var weeklyTemp = document.querySelector('.weekly-temp');
 var weeklyWind = document.querySelector('.weekly-wind');
 var weeklyHumidity = document.querySelector('.weekly-humidity');
@@ -15,16 +9,21 @@ var search = document.querySelector('.search-city');
 var btn = document.querySelector('.submit');
 var cities = document.querySelectorAll('.city');
 
+
 let cityInput = "London";
+const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec']
+
+var kToF = function(k){
+    return Math.floor((k - 273.15) * 1.8 + 32)
+};
 
 cities.forEach((city) => {
     city.addEventListener('click', (e) => {
         cityInput = e.target.innerHTML;
 
         fetchDailyWeather();
-        // fetchWeeklyWeather();
-
-        app.style.opacity = '0';
+        fetchWeeklyWeather();
     })
 })
 
@@ -37,63 +36,96 @@ form.addEventListener('submit', (e) => {
     }
 
     fetchDailyWeather();
-    // fetchWeeklyWeather();
+    fetchWeeklyWeather();
 
     search.value = '';
-
-    app.style.opacity = '0';
 
     e.preventDefault();
 });
 
-function dayOfWeek(day, month, year) {
-    const weekday = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-    ];
-    return weekday[new Date(`${day}/${month}/${year}`).getDay()];
-};
-
 function fetchDailyWeather() {
-    // fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=1&appid=92f58b8d29e5240f313467eab70b0b56`)
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=92f58b8d29e5240f313467eab70b0b56`)
-    // fetch(`https://api.weatherapi.com/v1/current.json?key=92f58b8d29e5240f313467eab70b0b56&q=${cityInput}`)
 
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
 
-.then(response => response.json())
-.then(data => {
-    console.log(data);
+        var dateOutput = document.querySelector('.date');
+        var currentDate = new Date();
+        const wd = weekday[currentDate.getDay()]; 
+        const m = months[currentDate.getDate()];
+        const d = currentDate.getDate();
+        const y = currentDate.getFullYear();
+        dateOutput.innerHTML = `${wd} ${m} ${d}, ${y}`;
 
-    dailyTemp.InnerHTML = data.main.temp + '&#176;'
-    conditionOutput.innerHTML = data.weather.main;
+        cityName = document.querySelector('.city-name')
+        cityName.innerHTML = cityInput;
 
-    // const date = data.location.localtime;
-    // const y = parseInt(date.substr(0, 4));
-    // const d = parseInt(date.substr(5, 2));
-    // const m = parseInt(date.substr(8, 2));
+        var dailyTemp = document.querySelector('.temperature');
+        dailyTemp.innerHTML = `${kToF(data.main.temp)}&#176;F`;
 
-    // dateOutput.innerHTML = `${dayOfWeek(d, m, y)} ${d} - ${m} - ${y}`;
+        var conditionOutput = document.querySelector('.condition');
+        conditionOutput.innerHTML = data.weather[0].description;
 
-    humidityOutput.innerHTML = data.main.humidity + '%';
-    windOutput.innerHTML = data.wind.speed+ 'mph';
+        var icon = document.querySelector('.icon');
+        icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+        icon.style.height = '54px';
+        icon.style.width = '54ox';
 
-    console.log(data.main.temp)
-    // console.log(data.weather.description)
-    console.log(data.main.humidity)
-    console.log(data.wind.speed)
+        var humidityOutput = document.querySelector('.humidity');
+        humidityOutput.innerHTML = `${data.main.humidity}%`;
 
-    
-    
+        var windOutput = document.querySelector('.wind');
+        windOutput.innerHTML = `${data.wind.speed} mph`;
+
+        let lat = data.coord.lat;
+        let lon = data.coord.lon;
+
+        fetch(`https://api.openweathermap.org/data/2.5/uvi?appid=92f58b8d29e5240f313467eab70b0b56&lat=${lat}&lon=${lon}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+                var uvIndex = document.querySelector('#uv-index')
+                var uvi = data.value;
+                uvIndex.innerHTML = uvi;
+
+                uvIndex.className = "";
+
+                if(uvi < 4) {
+                    uvIndex.setAttribute('class', 'low-uv');
+                }
+
+                else if(uvi < 8) {
+                    uvIndex.setAttribute('class', 'medium-uv'); 
+                }
+
+                else {
+                    uvIndex.setAttribute('class', 'high-uv');
+                }
+            })   
+    })
+
+    // YOU NEED TO ADD UV INDEX.
+
+.catch(() => {
+    alert('Unable to connect to Weather.com');
+    app.style.opacity = '1';
 })
 
-// .catch(() => {
-//     alert('City not found, please try again');
-//     app.style.opacity = '1';
-// })
+}
+
+function fetchWeeklyWeather() {
+    fetch(`api.openweathermap.org/data/2.5/forecast/daily?q=${cityInput}&appid=92f58b8d29e5240f313467eab70b0b56`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+
+
+    })
 
 }
+
+fetchDailyWeather();
+
+

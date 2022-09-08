@@ -1,0 +1,11 @@
+.low-uv {
+    background-color: rgb(4, 160, 4);
+}
+
+.medium-uv {
+    background-color: rgb(231, 189, 3);
+}
+
+.high-uv {
+    background-color: rgb(201, 0, 0);
+}
