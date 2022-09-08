@@ -101,7 +101,6 @@ function fetchDailyWeather() {
         var nd = new Date(currentCity)
         const currentTime = new Date(nd).getHours();
         console.log(currentTime)
-        console.log(localTime)
 
 
         if (code == 800) {
