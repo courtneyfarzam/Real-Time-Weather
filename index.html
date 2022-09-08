@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/0aa93583c3.js" crossorigin="anonymous"></script>
     <title>The Weather</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/style.css">
 </head>
 
@@ -27,14 +28,14 @@
     </div> -->
 
     <div class="weather-app">
+        <h3 class="title">today's weather</h3>
     <div class="container">
 
-        <h3 class="title">today's weather</h3>
 
         <div class="main-container">
 
             <div class="big-details">
-
+                
                 <h1 class="temperature">98&#176;</h1>
 
                 <div class="city-date">
@@ -55,7 +56,7 @@
 
             <div class="forecast">
 
-                <h2 class="forecast-header">5 Day Forecast:</h2>
+                <h3 class="forecast-header">Five Day Forecast:</h2>
 
                 <div id="weather-forecast"></div>
 
@@ -73,24 +74,27 @@
                     <i class="fas fa-search"></i>
                 </button>
 
+                <ul class="cities"></ul>
             </form>
 
-            <ul class="cities">
 
-            </ul>
+
 
             <ul class="daily-details">
 
-                <h4>Weather Details</h4>
+                <h3>Weather Details</h3>
 
                 <li>
-                    Wind: <span class="wind">20mph</span>
+                    <p>Wind:</p> 
+                    <span class="wind">20mph</span>
                 </li>
                 <li>
-                    Humidity: <span class="humidity">20%</span>
+                    <p>Humidity:</p> 
+                    <span class="humidity">20%</span>
                 </li>
                 <li>
-                    UV Index: <span id="uv-index">0.47</span>
+                    <p>UV Index:</p> 
+                    <span id="uv-index">0.47</span>
                 </li>
 
             </ul>
@@ -101,21 +105,5 @@
     </div>
     
 </body>
-<script
-      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"
-      integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg=="
-      crossorigin="anonymous">
-</script>
-    <script 
-      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/utc.min.js" 
-      integrity="sha512-m00bfmYnAl3plEBlQfeQUhw/U2uvmw29V2+jxSWpAjankMWS+zAsjezbKWDEJNXqWq9o9qQZSOiA2RKDpa4D5w==" 
-      crossorigin="anonymous"
-    ></script>
-    <script 
-      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/timezone.min.js" 
-      integrity="sha512-pslqxxHAYPCxaSeFSmXXxDkLejD5dbFVC66aiVq0z4v7VTJBU+wqcG1OpNh4p3MjS2D6NCwz/H2QmSc7dXxryg==" 
-      crossorigin="anonymous"
-    ></script>
-
 <script src="./assets/script.js"></script>
 </html>
