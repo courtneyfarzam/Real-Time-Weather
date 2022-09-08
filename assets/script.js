@@ -268,7 +268,7 @@ function saveCity() {
         var listItem = document.createElement('li')
         listItem.textContent = cityInput;
         listItem.setAttribute('class', 'city');
-        cityList.appendChild(listItem);
+        cityList.prepend(listItem);
         console.log(savedCities)
 
         listItem.addEventListener('click', cityClick)
