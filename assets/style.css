@@ -7,6 +7,19 @@ html {
     font-family: "Raleway", Helvetica, sans-serif;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+  }
+::-webkit-scrollbar-track {
+background: rgb(133, 133, 133, 0);
+}
+::-webkit-scrollbar-thumb {
+background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+background: #555;
+}
+
 body {
     margin: 0;
     background: #111;
@@ -21,9 +34,11 @@ h2 {
 }
 
 p,
-span {
+span,
+li {
     font-size: 1.6rem;
     line-height: 1;
+    list-style: none;
 }
 
 
@@ -48,6 +63,7 @@ span {
 .title {
     margin-left: 6rem;
     padding-top: 3rem;
+    font-size: 2.5rem;
 }
 
 .main-container {
@@ -73,6 +89,12 @@ span {
     font-size: 2rem;
 }
 
+.icon {
+    text-align: center;
+    width: 10rem;
+    height: 12rem;
+}
+
 .weather {
     display: flex;
     flex-direction: column;
@@ -86,7 +108,7 @@ span {
 }
 
 .forecast-header {
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
 #weather-forecast {
@@ -130,8 +152,43 @@ form {
     width: 100%;
 }
 
-input {
-    width: 90%;
+.submit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5.5rem;
+    height: 5.5rem;
+    padding: 1.18rem;
+    margin: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: 0.4s;
+    background:rgba(204, 204, 204, 0.8);
+    color:rgba(5, 5, 5, 0.8)
+}
+
+.search-city {
+    position: absolute;
+    top: 0;
+    background: none;
+    border: none;
+    border-bottom: 1px #ccc solid;
+    padding: 1.1rem 1rem 0.5rem 0;
+    width: 83%;
+    color: #fff;
+    font-size: 2.5rem;
+}
+
+.search-city:focus {
+    outline: none;
+    background: none;
+}
+
+.search-city::placeholder {
+    color: #ccc;
+    text-transform: lowercase;
 }
 
 .search-container ul {
@@ -140,9 +197,28 @@ input {
     border-bottom: 1px #ccc solid;
 }
 
+.cities {
+    height: 48.5rem;
+    overflow-y: scroll;
+}
+
+.city {
+    padding-top: 3rem;
+    font-size: 2rem;
+}
+
+.city:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .daily-details {
     position: relative;
-    top: 53rem;
+    top: 9rem;
+}
+
+.weather-header {
+    padding-bottom: 1rem;
 }
 
 .daily-details li {
