@@ -8,6 +8,6 @@
 * I had a really good time with the CSS as well. Since the API provided so much information, I wanted to make sure I could display it in a clean, nicely aesthetic way.    
 
 ## Live Website
-Please feel free to check out a live version of my project [here](https://cmash93.github.io/real-time-weather/).     
+Please feel free to check out a live version of my project [here](https://cmash93.github.io/Real-Time-Weather/).     
 ## Mockup    
 ![til](https://github.com/cmash93/Real-Time-Weather/blob/main/images/weatherapp.gif)
