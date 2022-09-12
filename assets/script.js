@@ -160,7 +160,7 @@ function fetchDailyWeather() {
                 app.style.backgroundImage = `url(./images/rainy-day.jpg)`;
             }
             else {
-                app.style.backgroundImage = `url(./images/rainy-night.jpg)`  
+                app.style.backgroundImage = `url(./images/rainy-night.png)`  
             }
         }
         else if (
@@ -228,7 +228,7 @@ function fetchWeeklyWeather() {
 
         forecast.innerHTML = '';
 
-        for (var i = 0; i < data.list.length; i += 8){
+        for (var i = 6; i < data.list.length; i += 8){
             
             var forecastEl = document.createElement('div');
             forecastEl.setAttribute('class', 'forecast-card');
